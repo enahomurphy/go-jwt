@@ -77,11 +77,7 @@ func Hmac256(src string, secret string) string {
 // if the hash of that message equals the hash passed
 // in. the resulting value is a boolean true or false
 func CompareHmac(message string, messageHmac string, secret string) bool {
-	key := []byte(secret)
-	mac1 := hmac.New(sha256.New, key)
-	mac1.Write([]byte(message))
-	expectedMac := base64.StdEncoding.EncodeToString(mac1.Sum(nil))
-	return expectedMac == messageHmac
+	return messageHmac == Hmac256(message, secret)
 }
 
 // getHeader this creates the jwt header.
