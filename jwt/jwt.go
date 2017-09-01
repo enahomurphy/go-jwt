@@ -33,7 +33,7 @@ type Payload struct {
 // the header consist of the hashing algorithm used for
 // creating the token, this is encoded using a base64
 // encoding algorithm. The payload contains user and issuers
-// information, and also the time the the token is to last
+// information, and also the time the token is to last
 // this is also encoded using a base64 encoding algorithm.
 // the final part of the token is the signature, this consist
 // of the encoded header and payload hashed using the hashing
