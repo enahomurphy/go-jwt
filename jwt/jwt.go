@@ -69,7 +69,7 @@ func Hmac256(src string, secret string) string {
 	key := []byte(secret)
 	h := hmac.New(sha256.New, key)
 	h.Write([]byte(src))
-	return base64.StdEncoding.EncodeToString(h.Sum(nil))
+	return Base64Encode(string(h.Sum(nil)))
 }
 
 // CompareHmac compares a Hmac256 hash against a message
@@ -101,7 +101,7 @@ func getHeader() string {
 // of the user using the HS256 algorithm. this method returns
 // a token concatenated with the base64 encoded payload and header
 // {header}.{payload}.{signature}
-func Encode(payload Payload, secret string) string {
+func Encode(payload interface{}, secret string) string {
 	header := getHeader()
 	encodedPayload, _ := json.Marshal(payload)
 	signatureValue := header + "." + Base64Encode(string(encodedPayload))
