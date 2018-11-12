@@ -42,9 +42,9 @@ type Payload struct {
 // Base64Encode takes in a string and returns
 // a bases64 encode string
 func Base64Encode(src string) string {
-	data := []byte(src)
-	str := base64.StdEncoding.EncodeToString(data)
-	return str
+	return strings.
+		TrimRight(base64.URLEncoding.
+			EncodeToString([]byte(src)), "=")
 }
 
 // Base64Decode takes in an Encoded string and returns
@@ -52,11 +52,16 @@ func Base64Encode(src string) string {
 // decoding the string, an error is returned with an
 // empty string
 func Base64Decode(src string) (string, error) {
-	decoded, err := base64.StdEncoding.DecodeString(src)
+	if l := len(src) % 4; l > 0 {
+		src += strings.Repeat("=", 4-l)
+	}
+
+	decoded, err := base64.URLEncoding.DecodeString(src)
 	if err != nil {
 		errMsg := fmt.Errorf("Decoding Error %s", err)
 		return "", errMsg
 	}
+
 	return string(decoded), nil
 }
 
