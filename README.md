@@ -1,7 +1,7 @@
 # JWT TOKEN 
 
 -----
-this is a simple jwt token library
+this is a simple jwt token library for learning purposes
 
 ## WHAT IS JWT
 
